@@ -1,0 +1,8 @@
+{
+  "name": "copywriting_analyzer",
+  "version": "1.0.0",
+  "author": "Will Shahda",
+  "dependencies": {
+    "yuglify": "^0.1.4"
+  }
+}
