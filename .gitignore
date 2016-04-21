@@ -11,5 +11,8 @@ Gemfile.lock
 # Packages
 node_modules/
 
+# Database
+app/db.sqlite3
+
 # Compiled static files
 app/static/
