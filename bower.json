@@ -1,0 +1,22 @@
+{
+  "name": "copywriting_analyzer",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Will Shahda"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/opz/copywriting-analyzer",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}

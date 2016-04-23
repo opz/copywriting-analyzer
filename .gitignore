@@ -10,6 +10,7 @@ Gemfile.lock
 
 # Packages
 node_modules/
+bower_components/
 
 # Database
 app/db.sqlite3
