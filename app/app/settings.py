@@ -124,12 +124,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.FileSystemFinder',
+    'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
 # Pipeline settings
@@ -138,7 +138,8 @@ PIPELINE = {
     'STYLESHEETS': {
         'dist': {
             'source_filenames': (
-                '**/*.scss',
+                'css/*.css',
+                'scss/*.scss',
             ),
             'output_filename': 'css/main.css',
         },
@@ -146,7 +147,7 @@ PIPELINE = {
     'JAVASCRIPT': {
         'dist': {
             'source_filenames': (
-                '**/*.js',
+                'js/*.js',
             ),
             'output_filename': 'js/main.js',
         },
