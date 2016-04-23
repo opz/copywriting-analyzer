@@ -4,21 +4,35 @@
 
 {% block body %}
 
-    {% if form.errors %}
-        <p>{% trans 'Username and Password do not match.' %}</p>
-    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
 
-    <form method="post" action ="{% url 'django.contrib.auth.views.login' %}">
-        {% csrf_token %}
+                {% if form.errors %}
+                    <p>{% trans 'Username and Password do not match.' %}</p>
+                {% endif %}
 
-        {{ form.username.label_tag }}
-        {{ form.username }}
+                <img class="login-profile-img img-circle img-responsive center-block" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 
-        {{ form.password.label_tag }}
-        {{ form.password }}
+                <form method="post" action ="{% url 'login' %}">
+                    {% csrf_token %}
 
-        <input type="submit" value="{% trans 'Login' %}">
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
+                    <div class="form-group">
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password }}
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans 'Sign in' %}">
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+
+                <a href="{% url 'password_reset' %}" class="forgot-password">{% trans 'Forgot the password?' %}</a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
