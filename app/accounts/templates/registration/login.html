@@ -14,7 +14,7 @@
 
                 <img class="login-profile-img img-circle img-responsive center-block" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 
-                <form method="post" action ="{% url 'login' %}">
+                <form method="post" action ="{% url 'accounts:login' %}">
                     {% csrf_token %}
 
                     <div class="form-group">
@@ -30,7 +30,7 @@
                     <input type="hidden" name="next" value="{{ next }}">
                 </form>
 
-                <a href="{% url 'password_reset' %}" class="forgot-password">{% trans 'Forgot the password?' %}</a>
+                <a href="{% url 'accounts:password_reset' %}" class="forgot-password">{% trans 'Forgot the password?' %}</a>
             </div>
         </div>
     </div>

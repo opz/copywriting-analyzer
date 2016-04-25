@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 
 from forms import BootstrapAuthenticationForm
 
+app_name = 'accounts'
 urlpatterns = [
     url(r'^login/$', auth_views.login, {'authentication_form': BootstrapAuthenticationForm}, 'login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
