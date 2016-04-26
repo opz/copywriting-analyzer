@@ -23,3 +23,15 @@ class LandingPage(models.Model):
 
     def __str__(self):
         return self.url
+
+    def __eq__(self, other):
+        return self.url == other.url \
+            and self.content == other.content \
+            and self.flesch_reading_ease == other.flesch_reading_ease \
+            and self.flesch_kincaid_grade == other.flesch_kincaid_grade \
+            and self.gunning_fog == other.gunning_fog \
+            and self.smog_index == other.smog_index \
+            and self.automated_readability_index == other.automated_readability_index \
+            and self.coleman_liau_index == other.coleman_liau_index \
+            and self.linsear_write_formula == other.linsear_write_formula \
+            and self.dale_chall_readability_score == other.dale_chall_readability_score

@@ -26,3 +26,5 @@ def analyze_landingpage(id):
     landingpage.dale_chall_readability_score = textstat.dale_chall_readability_score(landingpage.content)
 
     landingpage.save()
+
+    return landingpage
