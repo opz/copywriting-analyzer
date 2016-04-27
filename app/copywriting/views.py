@@ -5,7 +5,7 @@ from .models import LandingPage
 
 @login_required
 def index(request):
-    landingpages = LandingPage.objects.all()
+    landingpages = LandingPage.objects.filter(user=request.user)
 
     context = {
         'landingpages': landingpages
