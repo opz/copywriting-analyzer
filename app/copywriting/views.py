@@ -5,6 +5,18 @@ from .models import LandingPage
 
 @login_required
 def index(request):
+    """
+    Display logged in user's :model:`copywriting.LandingPage` analysis.
+
+    **Context**
+
+    ``landingpages``
+        Array of :model:`copywriting.LandingPage` instances.
+
+    **Template**
+
+    :template:`copywriting/index.html`
+    """
     landingpages = LandingPage.objects.filter(user=request.user)
 
     context = {

@@ -8,6 +8,10 @@ from textstat.textstat import textstat
 from .models import LandingPage
 
 def analyze_landingpage(id):
+    """
+    Scrape text content from :model:`copywriting.LandingPage` and calculate
+    readability scores.
+    """
     landingpage = LandingPage.objects.get(id=id)
 
     page = requests.get(landingpage.url)

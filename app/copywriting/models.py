@@ -7,6 +7,10 @@ from django.core.validators import URLValidator
 
 @python_2_unicode_compatible
 class LandingPage(models.Model):
+    """
+    Stores a single landing page analysis, related to :model:`auth.User`.
+    """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     date    = models.DateTimeField(auto_now_add=True)
@@ -28,6 +32,10 @@ class LandingPage(models.Model):
         return self.url
 
     def __eq__(self, other):
+        """
+        Compare :model:`copywriting.LandingPage` based on content and
+        readability scores.
+        """
         return self.url == other.url \
             and self.content                      == other.content \
             and self.flesch_reading_ease          == other.flesch_reading_ease \
