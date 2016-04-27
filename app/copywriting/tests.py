@@ -35,7 +35,7 @@ class LandingPageTests(AuthenticatedTestCase):
         web scraping and correct readability analysis.
         """
         landingpage = LandingPage(
-            url                          ='http://willshahda.com',
+            url                          = 'http://willshahda.com',
             user                         = self.user,
             flesch_reading_ease          = Decimal('40.34'),
             flesch_kincaid_grade         = Decimal('11.10'),
@@ -61,10 +61,26 @@ class LandingPageViewTests(AuthenticatedTestCase):
 
     def test_list_view_with_no_landingpages(self):
         """
-        If no :model:`copywriting.LandingPage` instances exist for a user,
-        an error message should display.
+        If no :model:`copywriting.LandingPage` instances exist for current
+        :model:`auth.User`, an error message should display.
         """
         response = self.client.get(reverse('copywriting:index'))
 
         message = 'No landing pages available for analysis.'
         self.assertContains(response, message, status_code=200)
+        self.assertQuerysetEqual(response.context['landingpages'], [])
+
+    def test_list_view_with_one_landingpage(self):
+        """
+        If :model:`copywriting.LandingPage` instances exist for current
+        :model:`auth.User`, they should all display.
+        """
+        url = 'http://willshahda.com'
+        landingpage = LandingPage(url=url, user=self.user)
+        landingpage.save()
+
+        analyze_landingpage(1)
+
+        response = self.client.get(reverse('copywriting:index'))
+
+        self.assertQuerysetEqual(response.context['landingpages'], ['<LandingPage: %s>' % url])
