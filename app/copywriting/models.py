@@ -37,7 +37,6 @@ class LandingPage(models.Model):
         readability scores.
         """
         return self.url == other.url \
-            and self.content                      == other.content \
             and self.flesch_reading_ease          == other.flesch_reading_ease \
             and self.flesch_kincaid_grade         == other.flesch_kincaid_grade \
             and self.gunning_fog                  == other.gunning_fog \

@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 from .models import LandingPage
 
-@login_required
-def index(request):
+class LandingPageListView(ListView):
     """
-    Display logged in user's :model:`copywriting.LandingPage` analysis.
+    Display :model:`copywriting.LandingPage` analysis for logged in
+    :model:`auth.User`.
 
     **Context**
 
@@ -15,12 +14,14 @@ def index(request):
 
     **Template**
 
-    :template:`copywriting/index.html`
+    :template:`copywriting/landingpage_list.html`
     """
-    landingpages = LandingPage.objects.filter(user=request.user)
 
-    context = {
-        'landingpages': landingpages
-    }
+    context_object_name = 'landingpages'
 
-    return render(request, 'copywriting/index.html', context)
+    def get_queryset(self):
+        """
+        Return :model:`copywriting.LandingPage` instances for
+        :model:`auth.User`.
+        """
+        return LandingPage.objects.filter(user=self.request.user)

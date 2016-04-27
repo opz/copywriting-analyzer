@@ -7,12 +7,15 @@ from textstat.textstat import textstat
 
 from .models import LandingPage
 
-def analyze_landingpage(id):
+def analyze_landingpage(pk):
     """
     Scrape text content from :model:`copywriting.LandingPage` and calculate
     readability scores.
+
+    :param pk: ID of :model:`copywriting.LandingPage` to analyze.
+    :returns: Updated :model:`copywriting.LandingPage`.
     """
-    landingpage = LandingPage.objects.get(id=id)
+    landingpage = LandingPage.objects.get(pk=pk)
 
     page = requests.get(landingpage.url)
     tree = html.fromstring(page.content)
