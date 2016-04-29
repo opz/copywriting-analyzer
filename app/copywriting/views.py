@@ -61,7 +61,7 @@ class LandingPageAPIView(APIView):
         if serializer.is_valid():
             landingpage = serializer.save(user=self.request.user)
 
-            landingpage = analyze_landingpage(landingpage)
+            landingpage.analyze()
 
             landingpage.save()
 
