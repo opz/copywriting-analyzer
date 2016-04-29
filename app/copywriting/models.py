@@ -26,17 +26,16 @@ class LandingPage(models.Model):
     content = models.TextField(blank=True)
 
     # Readability scores
-    decimal_field_args  = {'null': True, 'max_digits': 5, 'decimal_places': 2}
-    flesch_reading_ease = models.DecimalField(**decimal_field_args)
+    _decimal_field_args = {'null': True, 'max_digits': 5, 'decimal_places': 2}
 
-    decimal_field_args['max_digits'] = 4
-    flesch_kincaid_grade             = models.DecimalField(**decimal_field_args)
-    gunning_fog                      = models.DecimalField(**decimal_field_args)
-    smog_index                       = models.DecimalField(**decimal_field_args)
-    automated_readability_index      = models.DecimalField(**decimal_field_args)
-    coleman_liau_index               = models.DecimalField(**decimal_field_args)
-    linsear_write_formula            = models.DecimalField(**decimal_field_args)
-    dale_chall_readability_score     = models.DecimalField(**decimal_field_args)
+    flesch_reading_ease          = models.DecimalField(**_decimal_field_args)
+    flesch_kincaid_grade         = models.DecimalField(**_decimal_field_args)
+    gunning_fog                  = models.DecimalField(**_decimal_field_args)
+    smog_index                   = models.DecimalField(**_decimal_field_args)
+    automated_readability_index  = models.DecimalField(**_decimal_field_args)
+    coleman_liau_index           = models.DecimalField(**_decimal_field_args)
+    linsear_write_formula        = models.DecimalField(**_decimal_field_args)
+    dale_chall_readability_score = models.DecimalField(**_decimal_field_args)
 
     def analyze(self):
         """
@@ -49,7 +48,7 @@ class LandingPage(models.Model):
         self.title   = tree.xpath('//head/title/text()')[0]
         self.content = tree.xpath('//body')[0].text_content()
 
-        methods = (
+        metrics = (
             'flesch_reading_ease',
             'flesch_kincaid_grade',
             'gunning_fog',
@@ -60,10 +59,11 @@ class LandingPage(models.Model):
             'dale_chall_readability_score',
         )
 
-        for method in methods:
-            value         = getattr(textstat, method)(self.content)
+        for metric in metrics:
+            value         = getattr(textstat, metric)(self.content)
             decimal_value = Decimal(value).quantize(Decimal('0.01'))
-            setattr(self, method, decimal_value)
+
+            setattr(self, metric, decimal_value)
 
     def __str__(self):
         return self.url
