@@ -1,13 +1,12 @@
 from __future__ import unicode_literals
 
-from decimal import getcontext, Decimal
+from decimal import Decimal
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from .models import LandingPage
-from .services import analyze_landingpage
 
 class AuthenticatedTestCase(TestCase):
     """
@@ -47,7 +46,12 @@ class LandingPageTests(AuthenticatedTestCase):
             dale_chall_readability_score = Decimal('9.77')
         )
 
-        test_landingpage = analyze_landingpage(landingpage)
+        test_landingpage = LandingPage(
+            url  = 'http://willshahda.com',
+            user = self.user,
+        )
+
+        test_landingpage.analyze()
 
         self.assertEqual(landingpage, test_landingpage)
 
@@ -74,8 +78,7 @@ class LandingPageViewTests(AuthenticatedTestCase):
         """
         url = 'http://willshahda.com'
         landingpage = LandingPage(url=url, user=self.user)
-
-        landingpage = analyze_landingpage(landingpage)
+        landingpage. analyze()
 
         landingpage.save()
 

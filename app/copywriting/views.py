@@ -7,7 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import LandingPage
 from .serializers import LandingPageSerializer
-from .services import analyze_landingpage
 
 class LandingPageListView(ListView):
     """

@@ -6,6 +6,8 @@ import requests
 
 from textstat.textstat import textstat
 
+from decimal import Decimal
+
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
@@ -17,22 +19,24 @@ class LandingPage(models.Model):
     Stores a single landing page analysis, related to :model:`auth.User`.
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    user    = models.ForeignKey(User, on_delete=models.CASCADE)
     date    = models.DateTimeField(auto_now_add=True)
     title   = models.TextField(blank=True)
     url     = models.TextField(validators=[URLValidator()])
     content = models.TextField(blank=True)
 
     # Readability scores
-    flesch_reading_ease          = models.DecimalField(null=True, max_digits=5, decimal_places=2)
-    flesch_kincaid_grade         = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    gunning_fog                  = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    smog_index                   = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    automated_readability_index  = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    coleman_liau_index           = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    linsear_write_formula        = models.DecimalField(null=True, max_digits=4, decimal_places=2)
-    dale_chall_readability_score = models.DecimalField(null=True, max_digits=4, decimal_places=2)
+    decimal_field_args  = {'null': True, 'max_digits': 5, 'decimal_places': 2}
+    flesch_reading_ease = models.DecimalField(**decimal_field_args)
+
+    decimal_field_args['max_digits'] = 4
+    flesch_kincaid_grade             = models.DecimalField(**decimal_field_args)
+    gunning_fog                      = models.DecimalField(**decimal_field_args)
+    smog_index                       = models.DecimalField(**decimal_field_args)
+    automated_readability_index      = models.DecimalField(**decimal_field_args)
+    coleman_liau_index               = models.DecimalField(**decimal_field_args)
+    linsear_write_formula            = models.DecimalField(**decimal_field_args)
+    dale_chall_readability_score     = models.DecimalField(**decimal_field_args)
 
     def analyze(self):
         """
@@ -45,14 +49,21 @@ class LandingPage(models.Model):
         self.title   = tree.xpath('//head/title/text()')[0]
         self.content = tree.xpath('//body')[0].text_content()
 
-        self.flesch_reading_ease          = textstat.flesch_reading_ease(self.content)
-        self.flesch_kincaid_grade         = textstat.flesch_kincaid_grade(self.content)
-        self.gunning_fog                  = textstat.gunning_fog(self.content)
-        self.smog_index                   = textstat.smog_index(self.content)
-        self.automated_readability_index  = textstat.automated_readability_index(self.content)
-        self.coleman_liau_index           = textstat.coleman_liau_index(self.content)
-        self.linsear_write_formula        = textstat.linsear_write_formula(self.content)
-        self.dale_chall_readability_score = textstat.dale_chall_readability_score(self.content)
+        methods = (
+            'flesch_reading_ease',
+            'flesch_kincaid_grade',
+            'gunning_fog',
+            'smog_index',
+            'automated_readability_index',
+            'coleman_liau_index',
+            'linsear_write_formula',
+            'dale_chall_readability_score',
+        )
+
+        for method in methods:
+            value         = getattr(textstat, method)(self.content)
+            decimal_value = Decimal(value).quantize(Decimal('0.01'))
+            setattr(self, method, decimal_value)
 
     def __str__(self):
         return self.url
@@ -62,7 +73,7 @@ class LandingPage(models.Model):
         Compare :model:`copywriting.LandingPage` based on content and
         readability scores.
         """
-        return self.url == other.url \
+        return self.url                           == other.url \
             and self.flesch_reading_ease          == other.flesch_reading_ease \
             and self.flesch_kincaid_grade         == other.flesch_kincaid_grade \
             and self.gunning_fog                  == other.gunning_fog \
