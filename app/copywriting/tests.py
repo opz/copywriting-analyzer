@@ -46,11 +46,8 @@ class LandingPageTests(AuthenticatedTestCase):
             linsear_write_formula        = Decimal('7.00'),
             dale_chall_readability_score = Decimal('9.77')
         )
-        landingpage.save()
 
-        analyze_landingpage(1)
-
-        test_landingpage = LandingPage.objects.get(pk=1)
+        test_landingpage = analyze_landingpage(landingpage)
 
         self.assertEqual(landingpage, test_landingpage)
 
@@ -77,9 +74,10 @@ class LandingPageViewTests(AuthenticatedTestCase):
         """
         url = 'http://willshahda.com'
         landingpage = LandingPage(url=url, user=self.user)
-        landingpage.save()
 
-        analyze_landingpage(1)
+        landingpage = analyze_landingpage(landingpage)
+
+        landingpage.save()
 
         response = self.client.get(reverse('copywriting:index'))
 

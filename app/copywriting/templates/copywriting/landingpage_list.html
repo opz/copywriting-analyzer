@@ -1,10 +1,29 @@
 {% extends 'app/base.html' %}
 
 {% load i18n %}
+{% load rest_framework %}
 
 {% block body %}
 
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+
+                {% if serializer %}
+
+                <form class="form-inline" action="{% url 'copywriting:api' %}" method="post">
+                    {% csrf_token %}
+
+                    {% render_form serializer template_pack='rest_framework/inline' %}
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Analyze">
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-xs-12">
 

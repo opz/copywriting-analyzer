@@ -7,7 +7,7 @@ from textstat.textstat import textstat
 
 from .models import LandingPage
 
-def analyze_landingpage(pk):
+def analyze_landingpage(landingpage):
     """
     Scrape text content from :model:`copywriting.LandingPage` and calculate
     readability scores.
@@ -15,8 +15,6 @@ def analyze_landingpage(pk):
     :param pk: ID of :model:`copywriting.LandingPage` to analyze.
     :returns: Updated :model:`copywriting.LandingPage`.
     """
-    landingpage = LandingPage.objects.get(pk=pk)
-
     page = requests.get(landingpage.url)
     tree = html.fromstring(page.content)
 
@@ -31,7 +29,5 @@ def analyze_landingpage(pk):
     landingpage.coleman_liau_index           = textstat.coleman_liau_index(landingpage.content)
     landingpage.linsear_write_formula        = textstat.linsear_write_formula(landingpage.content)
     landingpage.dale_chall_readability_score = textstat.dale_chall_readability_score(landingpage.content)
-
-    landingpage.save()
 
     return landingpage

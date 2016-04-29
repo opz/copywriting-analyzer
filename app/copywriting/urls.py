@@ -6,4 +6,5 @@ from . import views
 app_name = 'copywriting'
 urlpatterns = [
     url(r'^$', login_required(views.LandingPageListView.as_view()), name='index'),
+    url(r'^api/$', views.LandingPageAPIView.as_view(), name='api'),
 ]

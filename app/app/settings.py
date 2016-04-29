@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'app',
     'accounts',
     'copywriting',
+    'rest_framework',
     'pipeline',
     'django.contrib.admin',
     'django.contrib.auth',
