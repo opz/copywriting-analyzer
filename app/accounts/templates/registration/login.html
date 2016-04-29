@@ -12,7 +12,7 @@
                     <p>{% trans 'Username and Password do not match.' %}</p>
                 {% endif %}
 
-                <img class="login-profile-img img-circle img-responsive center-block" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <img class="login-profile-img img-circle img-responsive center-block" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png">
 
                 <form method="post" action ="{% url 'accounts:login' %}">
                     {% csrf_token %}

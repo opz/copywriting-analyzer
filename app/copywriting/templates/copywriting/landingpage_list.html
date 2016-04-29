@@ -11,14 +11,16 @@
 
                 {% if serializer %}
 
-                <form class="form-inline" action="{% url 'copywriting:api' %}" method="post">
-                    {% csrf_token %}
+                    <form class="form-inline" action="{% url 'copywriting:api' %}" method="post">
+                        {% csrf_token %}
 
-                    {% render_form serializer template_pack='rest_framework/inline' %}
+                        {% render_form serializer template_pack='rest_framework/inline' %}
 
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Analyze">
-                    </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Analyze">
+                        </div>
+
+                    </form>
 
                 {% endif %}
 
