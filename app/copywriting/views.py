@@ -31,7 +31,7 @@ class LandingPageListView(ListView):
         Return :model:`copywriting.LandingPage` instances for
         :model:`auth.User`.
         """
-        return LandingPage.objects.filter(user=self.request.user)
+        return LandingPage.objects.filter(user=self.request.user).order_by('-date')
 
     def get_context_data(self, **kwargs):
         """
