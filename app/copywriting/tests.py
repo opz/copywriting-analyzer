@@ -100,6 +100,10 @@ class LandingPageAPIViewTests(AuthenticatedTestMixin, APITestCase):
     """
 
     def test_post_request(self):
+        """
+        If a ``POST`` request is made to the ``copywriting`` API, a new
+        :model:`copywriting.LandingPage` instance should be created.
+        """
         data = {'url': 'http://willshahda.com'}
         response = self.client.post('/copywriting/api/', data)
 
