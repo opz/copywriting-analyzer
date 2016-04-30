@@ -21,5 +21,19 @@ class LandingPageSerializer(ModelSerializer):
 
     class Meta:
         model = LandingPage
-        fields = ('url',)
+        fields = '__all__'
+        read_only_fields = (
+            'user',
+            'date',
+            'title',
+            'content',
+            'flesch_reading_ease',
+            'flesch_kincaid_grade',
+            'gunning_fog',
+            'smog_index',
+            'automated_readability_index',
+            'coleman_liau_index',
+            'linsear_write_formula',
+            'dale_chall_readability_score',
+        )
         extra_kwargs = {'url': {'label': _('URL')}}
