@@ -154,6 +154,8 @@ PIPELINE = {
     'JAVASCRIPT': {
         'dist': {
             'source_filenames': (
+                'jquery/dist/jquery.min.js',
+                'copywriting/js/*.js',
             ),
             'output_filename': 'js/main.js',
         },
