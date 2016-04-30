@@ -36,4 +36,4 @@ class LandingPageSerializer(ModelSerializer):
             'linsear_write_formula',
             'dale_chall_readability_score',
         )
-        extra_kwargs = {'url': {'label': _('URL')}}
+        extra_kwargs = {'url': {'label': _('Enter URL')}}
