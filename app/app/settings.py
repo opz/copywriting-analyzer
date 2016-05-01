@@ -147,6 +147,7 @@ PIPELINE = {
         'dist': {
             'source_filenames': (
                 'app/scss/*.scss',
+                'copywriting/scss/*.scss',
             ),
             'output_filename': 'css/main.css',
         },

@@ -19,12 +19,33 @@
         });
     }
 
+    function setupPagination() {
+        $('.pager a').click(function(e) {
+            e.preventDefault();
+
+            paginate(this);
+        });
+    }
+
     function paginate(button) {
+        $('html, body').animate({ scrollTop: '0px' });
+
         $('#landing-pages').load(
-            $(button).attr('href') + ' #landing-pages',
+            $(button).attr('href') + ' .landing-page, .landing-page-nav',
             function() {
+                setupPagination();
+
+                displayLandingPages();
             }
         );
+    }
+
+    function displayLandingPages() {
+        $('.landing-page').each(function(index, element) {
+            setTimeout(function() {
+                $(element).removeClass('landing-page-hidden');
+            }, index * 300);
+        });
     }
 
     $(function() {
@@ -34,10 +55,8 @@
             submitForm(this);
         });
 
-        $('.pager a').click(function(e) {
-            e.preventDefault();
+        setupPagination();
 
-            paginate(this);
-        });
+        displayLandingPages();
     });
 })(jQuery);

@@ -37,7 +37,7 @@
                     {% else %}
 
                         {% for landingpage in landingpages %}
-                            <div class="panel panel-default">
+                            <div class="landing-page landing-page-hidden panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
                                         {% if landingpage.title %}
@@ -83,7 +83,7 @@
 
                     {% if is_paginated %}
 
-                        <nav>
+                        <nav class="landing-page-nav">
                             <ul class="pager">
 
                                 {% if page_obj.has_previous %}
