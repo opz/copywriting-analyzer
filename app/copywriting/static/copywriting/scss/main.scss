@@ -9,13 +9,13 @@
 }
 
 #landing-pages > .landing-page {
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateX(-100%);
     transition: transform 0.3s ease, opacity 0.3s ease;
 
-    &.landing-page-hidden {
-        opacity: 0;
-        transform: translateX(-100%);
+    &.landing-page-show {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 

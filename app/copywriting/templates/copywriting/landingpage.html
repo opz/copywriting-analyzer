@@ -1,0 +1,42 @@
+{% load i18n %}
+
+<div class="landing-page panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% if title %}
+                {{ title }} - <small><a target="_blank" href="{{ url }}">{{ url }}</a></small>
+            {% else %}
+                <a target="_blank" href="{{ url }}">{{ url }}</a>
+            {% endif %}
+        </h3>
+    </div>
+    <div class="panel-body">
+        {{ content|truncatechars:2000 }}
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans 'Flesch Readability Ease Score' %}</th>
+                <th>{% trans 'Flesch-Kincaid Grade' %}</th>
+                <th>{% trans 'Gunning FOG Scale' %}</th>
+                <th>{% trans 'SMOG Index' %}</th>
+                <th>{% trans 'Automated Readability Index' %}</th>
+                <th>{% trans 'Coleman-Liau Index' %}</th>
+                <th>{% trans 'Linsear Write' %}</th>
+                <th>{% trans 'Dale-Chall Readability Score' %}</th>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ flesch_reading_ease }}</td>
+                <td>{{ flesch_kincaid_grade }}</td>
+                <td>{{ gunning_fog }}</td>
+                <td>{{ smog_index }}</td>
+                <td>{{ automated_readability_index }}</td>
+                <td>{{ coleman_liau_index }}</td>
+                <td>{{ linsear_write_formula }}</td>
+                <td>{{ dale_chall_readability_score }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

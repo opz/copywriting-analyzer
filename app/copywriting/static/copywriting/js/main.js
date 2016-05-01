@@ -11,15 +11,24 @@
         $.ajax({
             method: $(form).attr('method'),
             url: $(form).attr('action'),
+            dataType: 'html',
             data: data,
+            context: form,
             success: function(data) {
+                console.log(data);
                 $(form).find(':input').prop('disabled', false);
                 $(form).find('.landing-page-analyze-spinner').remove();
-            }.bind(form),
+
+                var $landingpage = $(data);
+                $landingpage.prependTo($('#landing-pages')).hide()
+                    .slideDown(400, function() {
+                        $(this).addClass('landing-page-show');
+                    });
+            },
             error: function(data) {
                 $(form).find(':input').prop('disabled', false);
                 $(form).find('.landing-page-analyze-spinner').remove();
-            }.bind(form)
+            }
         });
     }
 
@@ -55,7 +64,7 @@
     function displayLandingPages() {
         $('.landing-page').each(function(index, element) {
             setTimeout(function() {
-                $(element).removeClass('landing-page-hidden');
+                $(element).addClass('landing-page-show');
             }, index * 300);
         });
     }

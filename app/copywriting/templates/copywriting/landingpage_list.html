@@ -37,46 +37,9 @@
                     {% else %}
 
                         {% for landingpage in landingpages %}
-                            <div class="landing-page landing-page-hidden panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        {% if landingpage.title %}
-                                            {{ landingpage.title }} - <small><a target="_blank" href="{{ landingpage.url }}">{{ landingpage.url }}</a></small>
-                                        {% else %}
-                                            <a target="_blank" href="{{ landingpage.url }}">{{ landingpage.url }}</a>
-                                        {% endif %}
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    {{ landingpage.content|truncatechars:2000 }}
-                                </div>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>{% trans 'Flesch Readability Ease Score' %}</th>
-                                            <th>{% trans 'Flesch-Kincaid Grade' %}</th>
-                                            <th>{% trans 'Gunning FOG Scale' %}</th>
-                                            <th>{% trans 'SMOG Index' %}</th>
-                                            <th>{% trans 'Automated Readability Index' %}</th>
-                                            <th>{% trans 'Coleman-Liau Index' %}</th>
-                                            <th>{% trans 'Linsear Write' %}</th>
-                                            <th>{% trans 'Dale-Chall Readability Score' %}</th>
-                                        <tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ landingpage.flesch_reading_ease }}</td>
-                                            <td>{{ landingpage.flesch_kincaid_grade }}</td>
-                                            <td>{{ landingpage.gunning_fog }}</td>
-                                            <td>{{ landingpage.smog_index }}</td>
-                                            <td>{{ landingpage.automated_readability_index }}</td>
-                                            <td>{{ landingpage.coleman_liau_index }}</td>
-                                            <td>{{ landingpage.linsear_write_formula }}</td>
-                                            <td>{{ landingpage.dale_chall_readability_score }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                            {% include 'copywriting/landingpage.html' with title=landingpage.title url=landingpage.url content=landingpage.content flesch_reading_ease=landingpage.flesch_reading_ease flesch_kincaid_grade=landingpage.flesch_kincaid_grade gunning_fog=landingpage.gunning_fog smog_index=landingpage.smog_index automated_readability_index=landingpage.automated_readability_index coleman_liau_index=landingpage.coleman_liau_index linsear_write_formula=landingpage.linsear_write_formula dale_chall_readability_score=landingpage.dale_chall_readability_score %}
+
                         {% endfor %}
 
                     {% endif %}

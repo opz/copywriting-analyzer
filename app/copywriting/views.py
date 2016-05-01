@@ -2,6 +2,7 @@ from django.views.generic.list import ListView
 
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 
 from .models import LandingPage
 from .serializers import LandingPageSerializer
@@ -49,6 +50,8 @@ class LandingPageAPIView(CreateAPIView):
 
     serializer_class   = LandingPageSerializer
     permission_classes = (IsAuthenticated,)
+    renderer_classes   = (JSONRenderer, TemplateHTMLRenderer,)
+    template_name      = 'copywriting/landingpage.html'
 
     def perform_create(self, serializer):
         """
