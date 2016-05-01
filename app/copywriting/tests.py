@@ -60,7 +60,7 @@ class LandingPageTests(AuthenticatedTestMixin, TestCase):
 
         self.assertEqual(landingpage, test_landingpage)
 
-class LandingPageListViewTests(AuthenticatedTestMixin):
+class LandingPageListViewTests(AuthenticatedTestMixin, TestCase):
     """
     Test :view:`copywriting.LandingPageListView`.
     """
