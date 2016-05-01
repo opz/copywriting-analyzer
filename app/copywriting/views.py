@@ -53,8 +53,15 @@ class LandingPageAPIView(ListCreateAPIView):
     def perform_create(self, serializer):
         """
         Associate new :model:`LandingPage` instance with current
-        :model:`auth.User` and analyze before saving.
+        :model:`auth.User` and :meth:`LandingPage.analyze` before saving.
         """
         landingpage = serializer.save(user=self.request.user)
         landingpage.analyze()
         landingpage.save()
+
+    def get_queryset(self):
+        """
+        Filter :attr:`views.LandingPageAPIView.queryset` by current
+        :model:`auth.User`.
+        """
+        return LandingPage.objects.filter(user=self.request.user).order_by('-date')
