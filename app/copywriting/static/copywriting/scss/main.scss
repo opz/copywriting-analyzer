@@ -1,3 +1,13 @@
+@import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
+
+.form-inline {
+    margin-bottom: $line-height-computed;
+}
+
+#landing-page-analyze-form .form-group {
+    position: relative;
+}
+
 #landing-pages > .landing-page {
     opacity: 1;
     transform: translateX(0);
@@ -7,4 +17,20 @@
         opacity: 0;
         transform: translateX(-100%);
     }
+}
+
+.landing-page-analyze-spinner,
+.landing-pages-spinner {
+    color: lighten($gray-base, 66%);
+}
+
+.landing-page-analyze-spinner {
+    position: absolute;
+    right: -1.25em;
+    top: 0.1em;
+}
+
+.landing-pages-spinner {
+    margin-top: 200px;
+    text-align: center;
 }

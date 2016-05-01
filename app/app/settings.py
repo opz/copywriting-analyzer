@@ -164,6 +164,6 @@ PIPELINE = {
     'COMPILERS': (
         'pipeline.compilers.sass.SASSCompiler',
     ),
-    'SASS_ARGUMENTS': '-I %s' % os.path.join(os.path.dirname(BASE_DIR), 'bower_components', 'bootstrap-sass', 'assets', 'stylesheets'),
+    'SASS_ARGUMENTS': '-I %s' % os.path.join(os.path.dirname(BASE_DIR), 'bower_components'),
     'YUGLIFY_BINARY': os.path.join(os.path.dirname(BASE_DIR), 'node_modules', '.bin', 'yuglify'),
 }

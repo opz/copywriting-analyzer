@@ -11,7 +11,7 @@
 
                 {% if serializer %}
 
-                    <form class="form-inline" action="{% url 'copywriting:api' %}" method="post">
+                    <form id="landing-page-analyze-form" class="form-inline" action="{% url 'copywriting:api' %}" method="post">
                         {% csrf_token %}
 
                         {% render_form serializer template_pack='rest_framework/inline' %}
