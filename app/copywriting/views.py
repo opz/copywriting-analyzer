@@ -1,8 +1,6 @@
 from django.views.generic.list import ListView
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from .models import LandingPage
@@ -43,27 +41,20 @@ class LandingPageListView(ListView):
 
         return context
 
-class LandingPageAPIView(APIView):
+class LandingPageAPIView(ListCreateAPIView):
     """
     Handles all CRUD operations for :model:`LandingPage` instances.
     """
 
+    queryset           = LandingPage.objects.all()
+    serializer_class   = LandingPageSerializer
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def perform_create(self, serializer):
         """
-        Create new :model:`LandingPage` instance associated with current
-        :model:`auth.User` and analyze its readability.
+        Associate new :model:`LandingPage` instance with current
+        :model:`auth.User` and analyze before saving.
         """
-        serializer = LandingPageSerializer(data=request.data)
-
-        if serializer.is_valid():
-            landingpage = serializer.save(user=self.request.user)
-
-            landingpage.analyze()
-
-            landingpage.save()
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        landingpage = serializer.save(user=self.request.user)
+        landingpage.analyze()
+        landingpage.save()
