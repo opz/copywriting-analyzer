@@ -1,6 +1,14 @@
 (function($) {
     'use strict'
 
+    function setupForms() {
+        $('form').submit(function(e) {
+            e.preventDefault();
+
+            submitForm(this);
+        });
+    }
+
     function submitForm(form) {
         var data = $(form).serialize();
 
@@ -18,20 +26,24 @@
                 $(form).find(':input').prop('disabled', false);
                 $(form).find('.landing-page-analyze-spinner').remove();
 
-                var $landingpage = $(data);
-                $landingpage.prependTo($('#landing-pages')).hide()
-                    .slideDown(400, function() {
-                        $(this).addClass('landing-page-show');
-                    });
-
-                $('#landing-pages .landing-page').last().slideUp(function() {
-                    $(this).remove();
-                });
+                addLandingPageToPage(data);
             },
             error: function(data) {
                 $(form).find(':input').prop('disabled', false);
                 $(form).find('.landing-page-analyze-spinner').remove();
             }
+        });
+    }
+
+    function addLandingPageToPage(landingpage) {
+        var $landingpage = $(landingpage);
+        $landingpage.prependTo($('#landing-pages')).hide()
+        .slideDown(400, function() {
+            $(this).addClass('landing-page-show');
+        });
+
+        $('#landing-pages .landing-page').last().slideUp(function() {
+            $(this).remove();
         });
     }
 
@@ -46,22 +58,18 @@
     function paginate(button) {
         $('html, body').animate(
             { scrollTop: '0px' },
-            {
-                complete: function() {
-                    $('#landing-pages')
-                    .empty()
-                    .append('<div class="landing-pages-spinner"><i class="fa fa-cog fa-5x fa-spin"></i><div>')
-                    .load(
-                        $(button).attr('href') + ' .landing-page, .landing-page-nav',
-                        function() {
-                            setupPagination();
-
-                            displayLandingPages();
-                        }
-                    );
-                }
-            }
+            { complete: loadLandingPages.bind(null, $(button).attr('href')) }
         );
+    }
+
+    function loadLandingPages(url) {
+        $('#landing-pages').empty()
+            .append('<div class="landing-pages-spinner"><i class="fa fa-cog fa-5x fa-spin"></i><div>')
+            .load(url + ' .landing-page, .landing-page-nav', function() {
+                setupPagination();
+
+                displayLandingPages();
+            });
     }
 
     function displayLandingPages() {
@@ -73,11 +81,7 @@
     }
 
     $(function() {
-        $('form').submit(function(e) {
-            e.preventDefault();
-
-            submitForm(this);
-        });
+        setupForms();
 
         setupPagination();
 
