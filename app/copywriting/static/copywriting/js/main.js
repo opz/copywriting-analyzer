@@ -15,7 +15,6 @@
             data: data,
             context: form,
             success: function(data) {
-                console.log(data);
                 $(form).find(':input').prop('disabled', false);
                 $(form).find('.landing-page-analyze-spinner').remove();
 
@@ -24,6 +23,10 @@
                     .slideDown(400, function() {
                         $(this).addClass('landing-page-show');
                     });
+
+                $('#landing-pages .landing-page').last().slideUp(function() {
+                    $(this).remove();
+                });
             },
             error: function(data) {
                 $(form).find(':input').prop('disabled', false);
