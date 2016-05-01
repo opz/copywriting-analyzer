@@ -1,23 +1,43 @@
 (function($) {
     'use strict'
 
+    function submitForm(form) {
+        var data = $(form).serialize();
+
+        $(form).find(':input').prop('disabled', true);
+
+        $.ajax({
+            method: $(form).attr('method'),
+            url: $(form).attr('action'),
+            data: data,
+            success: function(data) {
+                $(form).find(':input').prop('disabled', false);
+            }.bind(form),
+            error: function(data) {
+                //todo
+            }
+        });
+    }
+
+    function paginate(button) {
+        $('#landing-pages').load(
+            $(button).attr('href') + ' #landing-pages',
+            function() {
+            }
+        );
+    }
+
     $(function() {
         $('form').submit(function(e) {
             e.preventDefault();
 
-            var data = $(this).serialize();
+            submitForm(this);
+        });
 
-            $(this).find(':input').prop('disabled', true);
+        $('.pager a').click(function(e) {
+            e.preventDefault();
 
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: data,
-                success: function(data) {
-                    $(this).find(':input').prop('disabled', false);
-                    console.log(data);
-                }.bind(this)
-            });
+            paginate(this);
         });
     });
 })(jQuery);

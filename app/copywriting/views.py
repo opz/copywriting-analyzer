@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from .models import LandingPage
@@ -23,6 +23,7 @@ class LandingPageListView(ListView):
     """
 
     context_object_name = 'landingpages'
+    paginate_by = 5
 
     def get_queryset(self):
         """
@@ -41,12 +42,11 @@ class LandingPageListView(ListView):
 
         return context
 
-class LandingPageAPIView(ListCreateAPIView):
+class LandingPageAPIView(CreateAPIView):
     """
     Handles all CRUD operations for :model:`LandingPage` instances.
     """
 
-    queryset           = LandingPage.objects.all()
     serializer_class   = LandingPageSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -58,10 +58,3 @@ class LandingPageAPIView(ListCreateAPIView):
         landingpage = serializer.save(user=self.request.user)
         landingpage.analyze()
         landingpage.save()
-
-    def get_queryset(self):
-        """
-        Filter :attr:`views.LandingPageAPIView.queryset` by current
-        :model:`auth.User`.
-        """
-        return LandingPage.objects.filter(user=self.request.user).order_by('-date')

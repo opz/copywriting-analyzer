@@ -166,11 +166,3 @@ PIPELINE = {
     'SASS_ARGUMENTS': '-I %s' % os.path.join(os.path.dirname(BASE_DIR), 'bower_components', 'bootstrap-sass', 'assets', 'stylesheets'),
     'YUGLIFY_BINARY': os.path.join(os.path.dirname(BASE_DIR), 'node_modules', '.bin', 'yuglify'),
 }
-
-
-# Rest Framework settings
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5
-}
