@@ -39,14 +39,21 @@
 
     function addLandingPageToPage(landingpage) {
         var $landingpage = $(landingpage);
+
+        if ($('.landing-page').length === 0) {
+            $('#landing-pages').empty();
+        }
+
         $landingpage.prependTo($('#landing-pages')).hide()
         .slideDown(400, function() {
             $(this).addClass('landing-page-show');
         });
 
-        $('#landing-pages .landing-page').last().slideUp(function() {
-            $(this).remove();
-        });
+        if ($('.landing-page').length > 5) {
+            $('#landing-pages .landing-page').last().slideUp(function() {
+                $(this).remove();
+            });
+        }
     }
 
     function setupPagination() {
