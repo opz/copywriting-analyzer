@@ -46,6 +46,10 @@ class LandingPage(models.Model):
         tree = html.fromstring(page.content)
 
         self.title   = tree.xpath('//head/title/text()')[0]
+
+        for el in tree.xpath('//script|//style'):
+            el.drop_tree()
+
         self.content = tree.xpath('//body')[0].text_content()
 
         metrics = (
