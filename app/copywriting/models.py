@@ -42,7 +42,10 @@ class LandingPage(models.Model):
         Scrape text content from :model:`copywriting.LandingPage` and calculate
         readability scores.
         """
-        page = requests.get(self.url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'
+        }
+        page = requests.get(self.url, headers=headers)
         tree = html.fromstring(page.content)
 
         self.title   = tree.xpath('//head/title/text()')[0]
