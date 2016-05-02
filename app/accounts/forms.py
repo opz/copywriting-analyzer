@@ -7,5 +7,5 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     Extend :model:`auth.AuthenticationForm` with Bootstrap classes.
     """
 
-    username = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Email address'}))
+    username = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Username'}))
     password = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control','placeholder':'Password'}))

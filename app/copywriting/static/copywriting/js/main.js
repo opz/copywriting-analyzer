@@ -2,7 +2,7 @@
     'use strict'
 
     function setupForms() {
-        $('form').submit(function(e) {
+        $('#landing-page-analyze-form').submit(function(e) {
             e.preventDefault();
 
             submitForm(this);
@@ -27,6 +27,8 @@
                 $(form).find('.landing-page-analyze-spinner').remove();
 
                 addLandingPageToPage(data);
+
+                setupLandingPageDeleteButtons();
             },
             error: function(data) {
                 $(form).find(':input').prop('disabled', false);
@@ -67,6 +69,8 @@
             .append('<div class="landing-pages-spinner"><i class="fa fa-cog fa-5x fa-spin"></i><div>')
             .load(url + ' .landing-page, .landing-page-nav', function() {
                 setupPagination();
+
+                setupLandingPageDeleteButtons();
 
                 displayLandingPages();
             });

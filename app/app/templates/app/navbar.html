@@ -13,15 +13,21 @@
 
             <a class="navbar-brand" href="#">
                 <img class="img-circle pull-left" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                &nbsp;
-                Welcome {{ request.user.username }}
+                {% if request.user.is_authenticated %}
+                    &nbsp;
+                    Welcome {{ request.user.username }}
+                {% endif %}
             </a>
 
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}">{% trans 'Log in' %}</a></li>
+                {% endif %}
             </ul>
 
         </div>
