@@ -1,1 +1,21 @@
 {% extends 'app/base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans 'Copywriting Analyzer' %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="jumbotron">
+                    <h1>{% trans 'Copywriting Analyzer' %}</h1>
+                    <p>{% trans 'Start analyzing the sales copy on your landing pages! Uses 8 different metrics to analyze the readability of your sales copy.' %}</p>
+                    <p><a class="btn btn-primary btn-lg" href="{% url 'copywriting:index' %}" role="button">{% trans 'Start Analyzing' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

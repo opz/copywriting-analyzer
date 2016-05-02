@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {
         'authentication_form': BootstrapAuthenticationForm,
         'extra_context': {
-            'next': reverse_lazy('copywriting:index')}
+            'next': reverse_lazy('index')}
     }, 'login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
 ]
