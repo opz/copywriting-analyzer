@@ -72,6 +72,28 @@
             });
     }
 
+    function setupLandingPageDeleteButtons() {
+        $('.landing-page-delete').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                method: 'DELETE',
+                url: $(this).attr('href'),
+                headers: {
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                },
+                context: this,
+                success: function(data) {
+                    $(this).closest('.landing-page').slideUp(400, function() {
+                        $(this).remove();
+                    });
+                },
+                error: function(data) {
+                }
+            });
+        });
+    }
+
     function displayLandingPages() {
         $('.landing-page').each(function(index, element) {
             setTimeout(function() {
@@ -84,6 +106,8 @@
         setupForms();
 
         setupPagination();
+
+        setupLandingPageDeleteButtons();
 
         displayLandingPages();
     });

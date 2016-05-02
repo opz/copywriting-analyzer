@@ -13,7 +13,7 @@
 
                 {% if serializer %}
 
-                    <form id="landing-page-analyze-form" class="form-inline" action="{% url 'copywriting:api' %}" method="post">
+                    <form id="landing-page-analyze-form" class="form-inline" action="{% url 'copywriting:landingpage-list' %}" method="post">
                         {% csrf_token %}
 
                         {% render_form serializer template_pack='rest_framework/inline' %}
@@ -40,7 +40,7 @@
 
                         {% for landingpage in landingpages %}
 
-                            {% include 'copywriting/landingpage.html' with title=landingpage.title url=landingpage.url content=landingpage.content flesch_reading_ease=landingpage.flesch_reading_ease flesch_kincaid_grade=landingpage.flesch_kincaid_grade gunning_fog=landingpage.gunning_fog smog_index=landingpage.smog_index automated_readability_index=landingpage.automated_readability_index coleman_liau_index=landingpage.coleman_liau_index linsear_write_formula=landingpage.linsear_write_formula dale_chall_readability_score=landingpage.dale_chall_readability_score %}
+                            {% include 'copywriting/landingpage.html' with id=landingpage.pk title=landingpage.title url=landingpage.url content=landingpage.content flesch_reading_ease=landingpage.flesch_reading_ease flesch_kincaid_grade=landingpage.flesch_kincaid_grade gunning_fog=landingpage.gunning_fog smog_index=landingpage.smog_index automated_readability_index=landingpage.automated_readability_index coleman_liau_index=landingpage.coleman_liau_index linsear_write_formula=landingpage.linsear_write_formula dale_chall_readability_score=landingpage.dale_chall_readability_score %}
 
                         {% endfor %}
 

@@ -8,7 +8,7 @@
             {% else %}
                 <a target="_blank" href="{{ url }}">{{ url }}</a>
             {% endif %}
-            <button type="button" class="landing-page-delete close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <a class="landing-page-delete close" href="{% url 'copywriting:landingpage-detail' pk=id %}" aria-label="Close"><span aria-hidden="true">&times;</span></a>
         </h3>
     </div>
     <div class="panel-body">
